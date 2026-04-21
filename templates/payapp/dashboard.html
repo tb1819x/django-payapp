@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+        <div class="container mt-5">
+            <h2>Dashboard</h2>
+            <p><strong>Username: </strong> {{ user.username }} <strong>Balance:</strong> {{ account.balance }}  <strong>Currency:</strong> {{ account.currency }} </p>    
+        </div>  
+{% endblock %}

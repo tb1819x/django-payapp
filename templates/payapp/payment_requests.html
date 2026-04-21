@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}Payment Requests{% endblock %}
+
+{% block content %}
+<html>
+    <head>
+        <title>Payment Requests</title>
+    </head>
+     <body>
+       <div class="container mt-5">
+
+    <h3 class="mb-3">Received Requests</h3>
+
+    {% for req in incoming_requests %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <p>
+                    <strong>{{ req.requester.username }}</strong> requested 
+                    <strong>{{ req.amount }}</strong>
+                </p>
+
+                <form method="POST" action="{% url 'handle_request' req.id %}">
+                    {% csrf_token %}
+
+                    <button name="action" value="accept" class="btn btn-success btn-sm">
+                        Accept
+                    </button>
+
+                    <button name="action" value="reject" class="btn btn-danger btn-sm">
+                        Reject
+                    </button>
+                </form>
+            </div>
+        </div>
+    {% empty %}
+        <p class="text-muted">No incoming requests</p>
+    {% endfor %}
+
+
+    <h3 class="mt-5 mb-3">Sent Requests</h3>
+
+    {% for req in sent_requests %}
+        <div class="card mb-2">
+            <div class="card-body">
+                You requested <strong>{{ req.amount }}</strong> from 
+                <strong>{{ req.recipient.username }}</strong>
+            </div>
+        </div>
+    {% empty %}
+        <p class="text-muted">No sent requests</p>
+    {% endfor %}
+
+</div>
+    </body>
+</html>
+{% endblock %}

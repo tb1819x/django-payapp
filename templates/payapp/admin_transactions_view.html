@@ -1,0 +1,42 @@
+{% extends "adminbase.html" %}
+
+{% block title %}Admin Transactions{% endblock %}
+
+{% block content %}
+
+<h2 class="mb-4">All Transactions</h2>
+
+{% if transactions %}
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered align-middle mb-0">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Sender</th>
+                            <th>Recipient</th>
+                            <th>Amount</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for trans in transactions %}
+                            <tr>
+                                <td>{{ trans.sender.username }}</td>
+                                <td>{{ trans.receiver.username }}</td>
+                                <td>{{ trans.amount }}</td>
+                                <td>{{ trans.get_readable_timestamp }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% else %}
+    <div class="alert alert-secondary">
+        No transactions found.
+    </div>
+{% endif %}
+
+{% endblock %}
