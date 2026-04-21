@@ -4,9 +4,11 @@ This module defines all URL routes for the authentication component of the PayAp
 Maps urls to corresponding view functions
 """
 from django.urls import path
+from django.shortcuts import redirect
 from .views import register, login_view, logout_view
 
 urlpatterns = [
+   path('', lambda request: redirect('login')),
    path('register/', register, name="register"), 
    path('login/', login_view, name="login"),
    path('logout/', logout_view, name="logout")
